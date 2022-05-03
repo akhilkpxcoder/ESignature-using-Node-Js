@@ -3,5 +3,8 @@ Esign pdf using node js
 # Install
 ```
 npm install
-
+```
+# Run
+```
+npm start
 ```
