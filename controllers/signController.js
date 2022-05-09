@@ -5,7 +5,7 @@ const certfPath = './resources/certificate.p12';
 const imagePath = './resources/SamSign_image.png';
 const fs = require('fs');
 const _addPlaceholder = require('../utils/addPlaceholder')
-
+const pdf2base64 = require("pdf-to-base64");
 
 exports.signWithPdfLib = async (req, res) => {
     // read the document and certificate
@@ -23,7 +23,13 @@ exports.signWithPdfLib = async (req, res) => {
     // write the new document
     fs.writeFileSync(pdfName,signedPdf)
     // render new page
-    res.status(200).render('success');
     console.log(`success signing ${pdfName}`)
+    pdf2base64(pdfName)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      console.log(error); //Exepection error....
+    });
 }
     // end of PDFArrayCustom
